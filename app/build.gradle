@@ -7,8 +7,10 @@ android {
         applicationId "com.jusenr.gradletest2"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode gitVersionCode()
+        versionCode rootProject.gitVersionCode()
         versionName rootProject.ext.VERSION_NAME
+        buildConfigField "boolean", "IS_JUST_TEST", "false"
+        buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -23,6 +25,7 @@ android {
         release {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true
@@ -32,11 +35,10 @@ android {
         debug {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            versionNameSuffix "-debug"
+            buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
             minifyEnabled false
             shrinkResources false
-            manifestPlaceholders.UMENG_CHANNEL_VALUE = "test"
-            signingConfig null
+            signingConfig signingConfigs.release
         }
     }
     lintOptions {
@@ -55,30 +57,33 @@ android {
         javaMaxHeapSize "2g"
     }
 
+    //编译过滤器
+    variantFilter { variant ->
+        def buildType = variant.buildType.name
+        def flavorName = variant.getFlavors().get(0).name// 根据构建类型，自动过滤渠道
+
+        //过滤掉类型
+        if (buildType.equals('release')) {
+            println "======================="
+            println "variantFilter " + flavorName + " " + buildType
+            variant.setIgnore(true)
+        }
+    }
+
     //产品渠道配置
     productFlavors {
+        local_debug {
+            buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
+            buildConfigField "boolean", "IS_JUST_TEST", "true"
+            versionName = "D" + rootProject.getVersionName();
+        }
         local_release { versionName = "V" + defaultConfig.versionName }
-////        local_debug { versionName = "D" + defaultConfig.versionName }
-////        channel_putao { versionName = "V" + defaultConfig.versionName }
-////        channel_huodong { versionName = "V" + defaultConfig.versionName }
+//        channel_putao { versionName = "V" + defaultConfig.versionName }
+//        channel_huodong { versionName = "V" + defaultConfig.versionName }
+
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
-
-//        offline {
-//            dimension "SERVER"
-//
-//        }
-//
-//        online {
-//            dimension "SERVER"
-//        }
-//
-//        admin {
-//            dimension "SERVER"
-//
-//            manifestPlaceholders.UMENG_CHANNEL_VALUE = "admin"
-//        }
     }
 }
 
@@ -92,28 +97,18 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+//编译结束后删除unaligned包
 android.applicationVariants.all { variant ->
-    switch (variant.flavorName) {
-        case "admin":
-            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
-            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
-            if ("debug" == variant.buildType.getName()) {
-                variant.mergedFlavor.setVersionName(getVersionName() + "-admin")
-            } else {
-                variant.mergedFlavor.setVersionName(rootProject.ext.VERSION_NAME + "-admin")
+    variant.assemble.doLast {
+        variant.outputs.each { output ->
+            println "aligned " + output.outputFile
+            println "unaligned " + output.packageApplication.outputFile
+
+            File file = output.packageApplication.outputFile;
+            if (variant.buildType.zipAlignEnabled && file.getName().contains("unaligned")) {
+                println "deleting " + file.getName()
+                file.delete()
             }
-            break
-        case "offline":
-            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
-            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
-            variant.mergedFlavor.setVersionName(getVersionName())
-            break
-        case "online":
-            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
-            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
-            if ("debug" == variant.buildType.getName()) {
-                variant.mergedFlavor.setVersionName(getVersionName())
-            }
-            break
+        }
     }
 }
