@@ -21,4 +21,22 @@
         android:text="Hello World!"
         android:textColor="@android:color/holo_red_light"/>
 
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tv_version_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+
+    <ImageView
+        android:id="@+id/iv_image1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tv_version_code"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"/>
+
 </RelativeLayout>
