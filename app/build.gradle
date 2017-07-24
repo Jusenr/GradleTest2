@@ -1,0 +1,119 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.jusenr.gradletest2"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode gitVersionCode()
+        versionName rootProject.ext.VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file("../gradletest.jks")
+            storePassword "123456"
+            keyAlias "gradletest"
+            keyPassword "123456"
+        }
+    }
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            shrinkResources false
+            manifestPlaceholders.UMENG_CHANNEL_VALUE = "test"
+            signingConfig null
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    //源码集
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
+    //产品渠道配置
+    productFlavors {
+        local_release { versionName = "V" + defaultConfig.versionName }
+////        local_debug { versionName = "D" + defaultConfig.versionName }
+////        channel_putao { versionName = "V" + defaultConfig.versionName }
+////        channel_huodong { versionName = "V" + defaultConfig.versionName }
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
+//        offline {
+//            dimension "SERVER"
+//
+//        }
+//
+//        online {
+//            dimension "SERVER"
+//        }
+//
+//        admin {
+//            dimension "SERVER"
+//
+//            manifestPlaceholders.UMENG_CHANNEL_VALUE = "admin"
+//        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}
+
+android.applicationVariants.all { variant ->
+    switch (variant.flavorName) {
+        case "admin":
+            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
+            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
+            if ("debug" == variant.buildType.getName()) {
+                variant.mergedFlavor.setVersionName(getVersionName() + "-admin")
+            } else {
+                variant.mergedFlavor.setVersionName(rootProject.ext.VERSION_NAME + "-admin")
+            }
+            break
+        case "offline":
+            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
+            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
+            variant.mergedFlavor.setVersionName(getVersionName())
+            break
+        case "online":
+            variant.buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
+            variant.buildConfigField "String", "DOMAIN_NAME1", "\"http://pic1.16pic.com/\""
+            if ("debug" == variant.buildType.getName()) {
+                variant.mergedFlavor.setVersionName(getVersionName())
+            }
+            break
+    }
+}
