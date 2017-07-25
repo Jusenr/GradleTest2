@@ -9,8 +9,12 @@ android {
         targetSdkVersion 25
         versionCode rootProject.gitVersionCode()
         versionName rootProject.ext.VERSION_NAME
+        //标记当前环境是否为测试环境(false)
         buildConfigField "boolean", "IS_JUST_TEST", "false"
+        //默认API(生产环境)
         buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
+        //版本号(1.0.1)，保留的固定值
+        buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -25,7 +29,6 @@ android {
         release {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true
@@ -35,7 +38,10 @@ android {
         debug {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
+            //标记当前环境是否为测试环境(true)
+            buildConfigField "boolean", "IS_JUST_TEST", "true"
+            //开发环境API地址(Build Variant=xxxDebug/xxxDebug有效)
+            buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.release
@@ -57,27 +63,29 @@ android {
         javaMaxHeapSize "2g"
     }
 
-    //编译过滤器
-    variantFilter { variant ->
-        def buildType = variant.buildType.name
-        def flavorName = variant.getFlavors().get(0).name// 根据构建类型，自动过滤渠道
-
-        //过滤掉类型
-        if (buildType.equals('release')) {
-            println "======================="
-            println "variantFilter " + flavorName + " " + buildType
-            variant.setIgnore(true)
-        }
-    }
+    //编译过滤器'release'/'debug'
+//    variantFilter { variant ->
+//        def buildType = variant.buildType.name
+//        def flavorName = variant.getFlavors().get(0).name// 根据构建类型，自动过滤渠道
+//
+//        //过滤掉类型
+//        if (buildType.equalsIgnoreCase('debug')) {
+//            println "======================="
+//            println "variantFilter " + flavorName + " " + buildType
+//            variant.setIgnore(true)
+//        }
+//    }
 
     //产品渠道配置
     productFlavors {
-        local_debug {
-            buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
+        dev {
+            //标记当前环境是否为测试环境(true)
             buildConfigField "boolean", "IS_JUST_TEST", "true"
-            versionName = "D" + rootProject.getVersionName();
+            //测试环境API地址(仅Build Variant=devDebug有效)
+            buildConfigField "String", "DOMAIN_NAME", "\"http://tx.haiqq.com/\""
+            versionName = "D" + rootProject.getVersionName()
         }
-        local_release { versionName = "V" + defaultConfig.versionName }
+        online { versionName = "V" + defaultConfig.versionName }
 //        channel_putao { versionName = "V" + defaultConfig.versionName }
 //        channel_huodong { versionName = "V" + defaultConfig.versionName }
 

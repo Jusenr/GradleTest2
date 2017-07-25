@@ -23,7 +23,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    VERSION_NAME = "1.1.0"
+    VERSION_NAME = "1.5.0"
     TEST_NUM = "0005"
 }
 

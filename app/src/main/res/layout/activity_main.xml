@@ -5,38 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_version_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_version"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Hello World!"/>
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_version_code"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"/>
+
+        <TextView
+            android:id="@+id/tv_version_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            android:textColor="@android:color/holo_red_light"/>
+
+        <TextView
+            android:id="@+id/tv_build_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            android:textColor="@android:color/holo_green_light"/>
+
+        <TextView
+            android:id="@+id/tv_flavor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            android:textColor="@android:color/holo_blue_light"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_image"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Hello World!"
-        android:textColor="@android:color/holo_red_light"/>
+        android:layout_below="@+id/ll_version"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tv_version_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        <ImageView
+            android:id="@+id/iv_image1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"/>
 
+        <ImageView
+            android:id="@+id/iv_image2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"/>
 
-    <ImageView
-        android:id="@+id/iv_image1"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tv_version_code"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_image"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_domain_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"/>
+
+        <TextView
+            android:id="@+id/tv_is_just_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"/>
+
+        <TextView
+            android:id="@+id/tv_log_debug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
