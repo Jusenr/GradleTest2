@@ -22,28 +22,50 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+// gradle配置项目环境，
+// 切换环境方式或打包Apk方式：
+//      1.使用Build Variants视图下app的Build Variant选项
+//          开发环境(devDebug/devRelease)
+//          测试环境(offlineDebug/offlineRelease)
+//          生产环境(onlineDebug/onlineRelease)
+//      2.gradle命令
 ext {
     VERSION_NAME = "1.5.0"
     ONLINE_NUM = "00"
     TEST_NUM = "05"
     DEV_NUM = "15"
 }
-
+//生产环境版本号
 def getVersionName() {
-    return String.format("%s.%s", rootProject.ext.VERSION_NAME,
-            rootProject.ext.ONLINE_NUM)
+    def online_num = rootProject.ext.ONLINE_NUM
+    int num = online_num.isInteger() ? online_num.toInteger() : 0
+    if (num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.ONLINE_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
 }
-
+//测试环境版本号
 def getTestVersionName() {
-    return String.format("%s.%s", rootProject.ext.VERSION_NAME,
-            rootProject.ext.TEST_NUM)
+    def test_num = rootProject.ext.TEST_NUM
+    int num = test_num.isInteger() ? test_num.toInteger() : 0
+    if (num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.TEST_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
 }
-
+//开发环境版本号
 def getDevVersionName() {
-    return String.format("%s.%s", rootProject.ext.VERSION_NAME,
-            rootProject.ext.DEV_NUM)
+    def dev_num = rootProject.ext.DEV_NUM
+    int num = dev_num.isInteger() ? dev_num.toInteger() : 0
+    if (num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.DEV_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
 }
-
+//git提交次数
 static int gitVersionCode() {
     def count = "git rev-list HEAD --count".execute().text.trim()
     return count.isInteger() ? count.toInteger() : 0

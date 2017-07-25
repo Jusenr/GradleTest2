@@ -26,4 +26,11 @@
 
    >>测试/开发环境Apk与生成环境Apk可以同时安装在一个设备上。
 
+   >>切换环境方式或打包Apk方式：
+         1.使用Build Variants视图下app的Build Variant选项
+             开发环境(devDebug/devRelease)
+             测试环境(offlineDebug/offlineRelease)
+             生产环境(onlineDebug/onlineRelease)
+         2.gradle命令
+
 ------
