@@ -2,21 +2,21 @@
 
 >### gradle命令打包 ###
 
-2017-07-05 11：10
+2017-07-25 15：10
 
-    这个是打包所有渠道release版本
+    -->gradlew assembleRelease —— 打包所有渠道release版本
 
-    --gradlew assembleRelease
+    -->gradlew assembleDebug —— 打包所有渠道debug版本
 
-    这个是打包所有渠道debug版本
+    -->gradlew assembleXiaomiRelease —— 单独打包小米应用市场渠道的release版本
 
-    --gradlew assembleDebug
+    -->gradlew assembleXiaomi —— 单独打包小米应用市场渠道的debug和release版本
 
 -------
 
 >### 项目介绍 ###
 
-2017-07-05 11：10
+2017-07-25 10：10
 
    Notes:
 

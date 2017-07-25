@@ -89,12 +89,27 @@ android {
             versionName = "D" + rootProject.getVersionName()
         }
         online { versionName = "V" + defaultConfig.versionName }
-//        channel_putao { versionName = "V" + defaultConfig.versionName }
-//        channel_huodong { versionName = "V" + defaultConfig.versionName }
+//        huodong { versionName = "V" + defaultConfig.versionName }
+//        GooglePaly { versionName = "V" + defaultConfig.versionName }
+//        xiaomi { versionName = "V" + defaultConfig.versionName }
+//        umeng { versionName = "V" + defaultConfig.versionName }
 
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
+    }
+
+    //Apk包名自定义
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+            }
     }
 }
 
@@ -106,21 +121,26 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //umeng
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //glide
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
 }
 
 //编译结束后删除unaligned包
-android.applicationVariants.all { variant ->
-    variant.assemble.doLast {
-        variant.outputs.each { output ->
-            println "aligned " + output.outputFile
-            println "unaligned " + output.packageApplication.outputFile
+android.applicationVariants.all {
+    variant ->
+        variant.assemble.doLast {
+            variant.outputs.each {
+                output ->
+                    println "aligned " + output.outputFile
+                    println "unaligned " + output.packageApplication.outputFile
 
-            File file = output.packageApplication.outputFile;
-            if (variant.buildType.zipAlignEnabled && file.getName().contains("unaligned")) {
-                println "deleting " + file.getName()
-                file.delete()
+                    File file = output.packageApplication.outputFile;
+                    if (variant.buildType.zipAlignEnabled && file.getName().contains("unaligned")) {
+                        println "deleting " + file.getName()
+                        file.delete()
+                    }
             }
         }
-    }
 }
