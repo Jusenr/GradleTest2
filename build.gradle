@@ -24,12 +24,24 @@ task clean(type: Delete) {
 
 ext {
     VERSION_NAME = "1.5.0"
-    TEST_NUM = "0005"
+    ONLINE_NUM = "00"
+    TEST_NUM = "05"
+    DEV_NUM = "15"
 }
 
 def getVersionName() {
     return String.format("%s.%s", rootProject.ext.VERSION_NAME,
+            rootProject.ext.ONLINE_NUM)
+}
+
+def getTestVersionName() {
+    return String.format("%s.%s", rootProject.ext.VERSION_NAME,
             rootProject.ext.TEST_NUM)
+}
+
+def getDevVersionName() {
+    return String.format("%s.%s", rootProject.ext.VERSION_NAME,
+            rootProject.ext.DEV_NUM)
 }
 
 static int gitVersionCode() {

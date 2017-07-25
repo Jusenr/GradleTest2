@@ -28,7 +28,7 @@
         <!-- UMeng统计的Key和Channel -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="1234567890"/>
+            android:value="${UMENG_APP_KEY}"/>
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}"/>

@@ -9,6 +9,11 @@ android {
         targetSdkVersion 25
         versionCode rootProject.gitVersionCode()
         versionName rootProject.ext.VERSION_NAME
+        resValue "string", "app_name", "GradleTest"
+        manifestPlaceholders = [APPLICATIONID: applicationId,
+                                UMENG_APP_KEY: "1234567890",
+                                QQ_APP_ID    : "app1的QQ_APP_ID",
+                                AMAP_KEY     : "app1的高德地图key"]
         //标记当前环境是否为测试环境(false)
         buildConfigField "boolean", "IS_JUST_TEST", "false"
         //默认API(生产环境)
@@ -81,12 +86,15 @@ android {
     //产品渠道配置
     productFlavors {
         dev {
+            applicationId 'com.jusenr.dev'
+            resValue "string", "app_name", "GradleTest2"
+            manifestPlaceholders = [APPLICATIONID: applicationId]
             //标记当前环境是否为测试环境(true)
             buildConfigField "boolean", "IS_JUST_TEST", "true"
             //测试环境API地址(仅Build Variant=devDebug有效)
             buildConfigField "String", "DOMAIN_NAME", "\"http://tx.haiqq.com/\""
             buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
-            versionName = "D" + rootProject.getVersionName()
+            versionName = "D" + rootProject.getTestVersionName()
         }
         online { versionName = "V" + defaultConfig.versionName }
 //        huodong { versionName = "V" + defaultConfig.versionName }
@@ -102,11 +110,21 @@ android {
     //Apk包名自定义
     applicationVariants.all {
         variant ->
+            def apkFileName = rootProject.getVersionName()
+            if ("debug" == variant.buildType.getName() && "dev" == variant.flavorName) {
+                apkFileName = rootProject.getDevVersionName()
+            }
+            if ("release" == variant.buildType.getName() && "dev" == variant.flavorName) {
+                apkFileName = rootProject.getTestVersionName()
+            }
+            if ("release" == variant.buildType.getName() && "dev" != variant.flavorName) {
+                apkFileName = defaultConfig.versionName
+            }
             variant.outputs.each {
                 output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                        def fileName = outputFile.name.replace(".apk", "-${apkFileName}.apk")
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
             }
