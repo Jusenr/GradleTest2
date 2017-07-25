@@ -13,6 +13,7 @@ android {
         buildConfigField "boolean", "IS_JUST_TEST", "false"
         //默认API(生产环境)
         buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
+        buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
         //版本号(1.0.1)，保留的固定值
         buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,6 +43,7 @@ android {
             buildConfigField "boolean", "IS_JUST_TEST", "true"
             //开发环境API地址(Build Variant=xxxDebug/xxxDebug有效)
             buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
+            buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.release
@@ -83,6 +85,7 @@ android {
             buildConfigField "boolean", "IS_JUST_TEST", "true"
             //测试环境API地址(仅Build Variant=devDebug有效)
             buildConfigField "String", "DOMAIN_NAME", "\"http://tx.haiqq.com/\""
+            buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
             versionName = "D" + rootProject.getVersionName()
         }
         online { versionName = "V" + defaultConfig.versionName }
