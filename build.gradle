@@ -30,12 +30,12 @@ task clean(type: Delete) {
 //          生产环境(onlineDebug/onlineRelease)
 //      2.gradle命令
 ext {
-    MINSDK_VERSION = 15
-    TARGETSDK_VERSION = 25
-    VERSION_NAME = "1.5.0"
-    ONLINE_NUM = 00
-    TEST_NUM = 05
-    DEV_NUM = 15
+    MINSDK_VERSION = 15//最小支持SDK
+    TARGETSDK_VERSION = 25//最大支持SDK
+    VERSION_NAME = "1.5.0"//项目版本名称
+    ONLINE_NUM = 00//生产环境版本序号(公司内部测试使用)
+    TEST_NUM = 05//测试环境版本序号(公司内部测试使用)
+    DEV_NUM = 15//开发环境版本序号(公司内部测试使用)
 }
 //生产环境版本号
 def getVersionName() {
