@@ -30,6 +30,8 @@ task clean(type: Delete) {
 //          生产环境(onlineDebug/onlineRelease)
 //      2.gradle命令
 ext {
+    MINSDK_VERSION = 15
+    TARGETSDK_VERSION = 25
     VERSION_NAME = "1.5.0"
     ONLINE_NUM = 00
     TEST_NUM = 05

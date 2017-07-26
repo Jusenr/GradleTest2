@@ -5,8 +5,8 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.jusenr.gradletest2"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.MINSDK_VERSION
+        targetSdkVersion rootProject.ext.TARGETSDK_VERSION
         versionCode rootProject.gitVersionCode()
         versionName rootProject.ext.VERSION_NAME
         resValue "string", "app_name", "GradleTest"
@@ -86,7 +86,7 @@ android {
             manifestPlaceholders = [APPLICATION_ID: applicationId]
             //标记当前环境是否为测试环境(true)
             buildConfigField "boolean", "IS_JUST_TEST", "true"
-            //测试环境API地址
+            //开发环境API地址
             buildConfigField "String", "DOMAIN_NAME", "\"http://tx.haiqq.com/\""
             buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
             versionName = "D" + rootProject.getDevVersionName()
@@ -97,7 +97,7 @@ android {
             manifestPlaceholders = [APPLICATION_ID: applicationId]
             //标记当前环境是否为测试环境(true)
             buildConfigField "boolean", "IS_JUST_TEST", "true"
-            //开发环境API地址
+            //测试环境API地址
             buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
             buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
             versionName = "T" + rootProject.getTestVersionName()
