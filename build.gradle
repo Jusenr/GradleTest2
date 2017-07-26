@@ -31,15 +31,14 @@ task clean(type: Delete) {
 //      2.gradle命令
 ext {
     VERSION_NAME = "1.5.0"
-    ONLINE_NUM = "00"
-    TEST_NUM = "05"
-    DEV_NUM = "15"
+    ONLINE_NUM = 00
+    TEST_NUM = 05
+    DEV_NUM = 15
 }
 //生产环境版本号
 def getVersionName() {
-    def online_num = rootProject.ext.ONLINE_NUM
-    int num = online_num.isInteger() ? online_num.toInteger() : 0
-    if (num > 0) {
+    int online_num = rootProject.ext.ONLINE_NUM
+    if (online_num > 0) {
         return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.ONLINE_NUM)
     } else {
         return rootProject.ext.VERSION_NAME
@@ -47,9 +46,8 @@ def getVersionName() {
 }
 //测试环境版本号
 def getTestVersionName() {
-    def test_num = rootProject.ext.TEST_NUM
-    int num = test_num.isInteger() ? test_num.toInteger() : 0
-    if (num > 0) {
+    int test_num = rootProject.ext.TEST_NUM
+    if (test_num > 0) {
         return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.TEST_NUM)
     } else {
         return rootProject.ext.VERSION_NAME
@@ -57,9 +55,8 @@ def getTestVersionName() {
 }
 //开发环境版本号
 def getDevVersionName() {
-    def dev_num = rootProject.ext.DEV_NUM
-    int num = dev_num.isInteger() ? dev_num.toInteger() : 0
-    if (num > 0) {
+    int dev_num = rootProject.ext.DEV_NUM
+    if (dev_num > 0) {
         return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.DEV_NUM)
     } else {
         return rootProject.ext.VERSION_NAME

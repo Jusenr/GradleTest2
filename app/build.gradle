@@ -10,17 +10,17 @@ android {
         versionCode rootProject.gitVersionCode()
         versionName rootProject.ext.VERSION_NAME
         resValue "string", "app_name", "GradleTest"
-        manifestPlaceholders = [APPLICATIONID: applicationId,
-                                UMENG_APP_KEY: "1234567890",
-                                QQ_APP_ID    : "app1的QQ_APP_ID",
-                                AMAP_KEY     : "app1的高德地图key"]
+        manifestPlaceholders = [APPLICATION_ID: applicationId,
+                                UMENG_APP_KEY : "1234567890",
+                                QQ_APP_ID     : "app1的QQ_APP_ID",
+                                AMAP_KEY      : "app1的高德地图key"]
         //标记当前环境是否为测试环境(false)
         buildConfigField "boolean", "IS_JUST_TEST", "false"
         //默认API(生产环境)
         buildConfigField "String", "DOMAIN_NAME", "\"http://pic.qiantucdn.com/\""
         buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
         //版本号(1.0.1)，保留的固定值
-        buildConfigField("String", "versionNumber", "\"${rootProject.ext.VERSION_NAME}\"")
+        buildConfigField("String", "VERSION_NUMBER", "\"${rootProject.ext.VERSION_NAME}\"")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -44,11 +44,6 @@ android {
         debug {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            //标记当前环境是否为测试环境(true)
-            buildConfigField "boolean", "IS_JUST_TEST", "true"
-            //开发环境API地址(Build Variant=xxxDebug/xxxDebug有效)
-            buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
-            buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.release
@@ -87,14 +82,25 @@ android {
     productFlavors {
         dev {
             applicationId 'com.jusenr.dev'
-            resValue "string", "app_name", "GradleTest2"
-            manifestPlaceholders = [APPLICATIONID: applicationId]
+            resValue "string", "app_name", "GradleTest_dev"
+            manifestPlaceholders = [APPLICATION_ID: applicationId]
             //标记当前环境是否为测试环境(true)
             buildConfigField "boolean", "IS_JUST_TEST", "true"
-            //测试环境API地址(仅Build Variant=devDebug有效)
+            //测试环境API地址
             buildConfigField "String", "DOMAIN_NAME", "\"http://tx.haiqq.com/\""
             buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
-            versionName = "D" + rootProject.getTestVersionName()
+            versionName = "D" + rootProject.getDevVersionName()
+        }
+        offline {
+            applicationId 'com.jusenr.offline'
+            resValue "string", "app_name", "GradleTest_offline"
+            manifestPlaceholders = [APPLICATION_ID: applicationId]
+            //标记当前环境是否为测试环境(true)
+            buildConfigField "boolean", "IS_JUST_TEST", "true"
+            //开发环境API地址
+            buildConfigField "String", "DOMAIN_NAME", "\"http://pic1.16pic.com/\""
+            buildConfigField "String", "DOMAIN_NAME1", "\"http://tx.haiqq.com/\""
+            versionName = "T" + rootProject.getTestVersionName()
         }
         online { versionName = "V" + defaultConfig.versionName }
 //        huodong { versionName = "V" + defaultConfig.versionName }
