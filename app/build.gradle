@@ -29,6 +29,17 @@ android {
             storePassword "123456"
             keyAlias "gradletest"
             keyPassword "123456"
+
+//            def sPassword = null
+//            def kPassword = null
+//            if (System.console() != null)
+//                sPassword = System.console().readLine("\\\\nEnter store password ")
+//            if (System.console() != null)
+//                kPassword = System.console().readLine("\\\\nEnter key password ")
+//
+//            storePassword sPassword
+//            keyPassword kPassword
+//            keyAlias "gradletest"
         }
     }
     buildTypes {
