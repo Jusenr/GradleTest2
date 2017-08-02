@@ -26,20 +26,29 @@ android {
     signingConfigs {
         release {
             storeFile file("../gradletest.jks")
-            storePassword "123456"
             keyAlias "gradletest"
+            storePassword "123456"
             keyPassword "123456"
+
 
 //            def sPassword = null
 //            def kPassword = null
+//
+//            Console console = System.console()
+//            Console.printf "\n\nWe have to sign some things in this build." + "\n\nPlease enter your signing details.\n\n"
 //            if (System.console() != null)
-//                sPassword = System.console().readLine("\\\\nEnter store password ")
+//                sPassword = console.readLine("PGP Key Id: ")
 //            if (System.console() != null)
-//                kPassword = System.console().readLine("\\\\nEnter key password ")
+//                kPassword = console.readPassword("PGP Private Key Password: ")
+//            Console.printf "\nThanks.\n\n"
+//
+//            if (sPassword == null)
+//                sPassword = "123456"
+//            if (kPassword == null)
+//                kPassword = "123456"
 //
 //            storePassword sPassword
 //            keyPassword kPassword
-//            keyAlias "gradletest"
         }
     }
     buildTypes {
@@ -64,7 +73,7 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
-    //源码集
+//源码集
     sourceSets {
         main {
             java.srcDirs = ['src/main/java']
@@ -76,7 +85,7 @@ android {
         javaMaxHeapSize "2g"
     }
 
-    //编译过滤器'release'/'debug'
+//编译过滤器'release'/'debug'
 //    variantFilter { variant ->
 //        def buildType = variant.buildType.name
 //        def flavorName = variant.getFlavors().get(0).name// 根据构建类型，自动过滤渠道
@@ -89,7 +98,7 @@ android {
 //        }
 //    }
 
-    //产品渠道配置
+//产品渠道配置
     productFlavors {
         dev {
             applicationId 'com.jusenr.dev'
@@ -124,7 +133,7 @@ android {
         }
     }
 
-    //Apk包名自定义
+//Apk包名自定义
     applicationVariants.all {
         variant ->
             def apkFileName = rootProject.getVersionName()
