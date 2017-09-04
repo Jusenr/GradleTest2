@@ -100,6 +100,18 @@
             android:layout_marginTop="10dp"
             android:text="Hello World!"/>
 
+        <Button
+            android:id="@+id/btn_curweeks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="curweeks"/>
+
+        <Button
+            android:id="@+id/btn_showLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="showLog"/>
+
     </LinearLayout>
 
 </RelativeLayout>

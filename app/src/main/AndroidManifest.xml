@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jusenr.gradletest2">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <!-- UMeng统计所需权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -33,6 +36,11 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}"/>
         <!-- UMeng统计的Key和Channel -->
+
+        <!--Log view page-->
+        <activity
+            android:name="com.jusenr.toolslibrary.log.PTLogActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

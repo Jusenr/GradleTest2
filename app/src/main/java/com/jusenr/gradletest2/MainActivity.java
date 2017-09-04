@@ -3,10 +3,14 @@ package com.jusenr.gradletest2;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.jusenr.toolslibrary.log.logger.Logger;
+import com.jusenr.toolslibrary.utils.DateUtils;
+import com.jusenr.toolslibrary.utils.ToastUtils;
 
 /**
  * 测试
@@ -54,5 +58,21 @@ public class MainActivity extends AppCompatActivity {
         tv_is_just_test.setText(String.format("IS_JUST_TEST: %b", BuildConfig.IS_JUST_TEST));
         tv_log_debug.setText(String.format("LOG_DEBUG: %b", BuildConfig.LOG_DEBUG));
 
+        findViewById(R.id.btn_curweeks).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int weekInMills = DateUtils.getWeekInMills(System.currentTimeMillis() / 1000);
+                String format = String.format("当前是第%d周", weekInMills);
+                ToastUtils.showAlertToast(getApplicationContext(), format);
+                Logger.i(format);
+            }
+        });
+
+        findViewById(R.id.btn_showLog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger.showViewer();
+            }
+        });
     }
 }

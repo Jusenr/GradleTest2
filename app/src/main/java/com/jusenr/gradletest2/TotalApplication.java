@@ -2,6 +2,8 @@ package com.jusenr.gradletest2;
 
 import android.app.Application;
 
+import com.jusenr.toolslibrary.AndroidTools;
+
 /**
  * Description:
  * Copyright  : Copyright (c) 2017
@@ -16,5 +18,7 @@ public class TotalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        AndroidTools.init(getApplicationContext(), BuildConfig.LOG_TAG);
     }
 }

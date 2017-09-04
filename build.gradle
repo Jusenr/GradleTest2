@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -30,12 +31,13 @@ task clean(type: Delete) {
 //          生产环境(onlineDebug/onlineRelease)
 //      2.gradle命令
 ext {
-    MINSDK_VERSION = 15//最小支持SDK
+    MINSDK_VERSION = 19//最小支持SDK
     TARGETSDK_VERSION = 25//最大支持SDK
-    VERSION_NAME = "1.5.0"//项目版本名称
-    ONLINE_NUM = 00//生产环境版本序号(公司内部测试使用)
-    TEST_NUM = 05//测试环境版本序号(公司内部测试使用)
-    DEV_NUM = 15//开发环境版本序号(公司内部测试使用)
+    VERSION_NAME = "1.5.5"//项目版本名称
+    LOG_TAG = "gradle_test2"//日志Tag
+    ONLINE_NUM = 0//生产环境版本序号(公司内部测试使用)
+    TEST_NUM = 0//测试环境版本序号(公司内部测试使用)
+    DEV_NUM = 0//开发环境版本序号(公司内部测试使用)
 }
 //生产环境版本号
 def getVersionName() {
