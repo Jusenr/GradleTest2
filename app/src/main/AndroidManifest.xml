@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.jusenr.gradletest2">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -10,16 +16,17 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- UMeng统计所需权限 -->
 
+    <!-- UMeng统计所需权限 -->
     <application
         android:name=".TotalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/cur_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,11 +44,29 @@
             android:value="${UMENG_CHANNEL_VALUE}"/>
         <!-- UMeng统计的Key和Channel -->
 
-        <!--Log view page-->
+
+        <!-- Mob-SMS -->
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="21daebdfe7f1b"/>
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="3ad1c26b890351bfc9eb69667b25f7d3"/>
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <!-- Mob-SMS -->
+
+
+        <!-- Log view page -->
         <activity
             android:name="com.jusenr.toolslibrary.log.PTLogActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".SMSActivity">
+        </activity>
     </application>
 
 </manifest>

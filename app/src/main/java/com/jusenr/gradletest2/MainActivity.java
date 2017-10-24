@@ -1,5 +1,6 @@
 package com.jusenr.gradletest2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
 //    @see [http://pic.qiantucdn.com/58pic/17/89/50/55a65ec4979a9_1024.jpg]
 //    @see [http://pic1.16pic.com/00/19/98/16pic_1998000_b.jpg]
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("tag", BuildConfig.DOMAIN_NAME);
-
 
         TextView tv_version_name = (TextView) findViewById(R.id.tv_version_name);
         TextView tv_version_code = (TextView) findViewById(R.id.tv_version_code);
@@ -72,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Logger.showViewer();
+            }
+        });
+        findViewById(R.id.btn_sms).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SMSActivity.class));
             }
         });
     }

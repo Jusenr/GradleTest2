@@ -16,6 +16,9 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        flatDir {
+            dirs 'libs' //就是你放aar的目录地址
+        }
     }
 }
 
