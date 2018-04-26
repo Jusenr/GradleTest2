@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -36,6 +36,7 @@ task clean(type: Delete) {
 ext {
     MINSDK_VERSION = 19//最小支持SDK
     TARGETSDK_VERSION = 25//最大支持SDK
+    VERSION_CODE = 10//Build
     VERSION_NAME = "1.5.5"//项目版本名称
     LOG_TAG = "gradle_test2"//日志Tag
     ONLINE_NUM = 0//生产环境版本序号(公司内部测试使用)
@@ -70,7 +71,7 @@ def getDevVersionName() {
     }
 }
 //git提交次数
-static int gitVersionCode() {
-    def count = "git rev-list HEAD --count".execute().text.trim()
-    return count.isInteger() ? count.toInteger() : 0
-}
+//static int gitVersionCode() {
+//    def count = "git rev-list HEAD --count".execute().text.trim()
+//    return count.isInteger() ? count.toInteger() : 0
+//}
