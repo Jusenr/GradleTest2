@@ -67,6 +67,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".SMSActivity">
         </activity>
+        <activity android:name=".TestActivity">
+        </activity>
     </application>
 
 </manifest>
