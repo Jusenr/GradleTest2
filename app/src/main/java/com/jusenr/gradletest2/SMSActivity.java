@@ -3,12 +3,10 @@ package com.jusenr.gradletest2;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import cn.smssdk.EventHandler;
-import cn.smssdk.OnSendMessageHandler;
 import cn.smssdk.SMSSDK;
 
 public class SMSActivity extends AppCompatActivity implements SMSSDK.VerifyCodeReadListener {
@@ -45,27 +43,18 @@ public class SMSActivity extends AppCompatActivity implements SMSSDK.VerifyCodeR
 
         mEtPhone = (EditText) findViewById(R.id.et_phone);
         mEtCode = (EditText) findViewById(R.id.et_sms_verification_code);
-        findViewById(R.id.btn_send_verification_code).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phone = mEtPhone.getText().toString().trim();
-                String code = mEtCode.getText().toString().trim();
-                if (!TextUtils.isEmpty(phone)) {
-                    SMSSDK.getVerificationCode("+86", phone, new OnSendMessageHandler() {
-                        @Override
-                        public boolean onSendMessage(String s, String s1) {
-                            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-                    });
-                }
+        findViewById(R.id.btn_send_verification_code).setOnClickListener(v -> {
+            String phone = mEtPhone.getText().toString().trim();
+            String code = mEtCode.getText().toString().trim();
+            if (!TextUtils.isEmpty(phone)) {
+                SMSSDK.getVerificationCode("+86", phone, (s, s1) -> {
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                    return false;
+                });
             }
         });
-        findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        findViewById(R.id.btn_next).setOnClickListener(v -> {
 
-            }
         });
     }
 

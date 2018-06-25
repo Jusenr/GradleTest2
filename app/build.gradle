@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.jusenr.gradletest2"
@@ -87,6 +87,14 @@ android {
         javaMaxHeapSize "2g"
     }
 
+    // Configure only for each module that uses Java 8
+    // language features (either in its source code or
+    // through dependencies).
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 //产品渠道配置
     productFlavors {
         dev {
@@ -130,8 +138,8 @@ dependencies {
     })
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.2'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
     compile 'com.jusenr.android.library:androidtools:1.3.+'

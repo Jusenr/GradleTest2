@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,33 +58,15 @@ public class MainActivity extends AppCompatActivity {
         tv_is_just_test.setText(String.format("IS_JUST_TEST: %b", BuildConfig.IS_JUST_TEST));
         tv_log_debug.setText(String.format("LOG_DEBUG: %b", BuildConfig.LOG_DEBUG));
 
-        findViewById(R.id.btn_curweeks).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int weekInMills = DateUtils.getWeekInMills(System.currentTimeMillis() / 1000);
-                String format = String.format("当前是第%d周", weekInMills);
-                ToastUtils.showAlertToast(getApplicationContext(), format);
-                Logger.i(format);
-            }
+        findViewById(R.id.btn_curweeks).setOnClickListener(v -> {
+            int weekInMills = DateUtils.getWeekInMills(System.currentTimeMillis() / 1000);
+            String format = String.format("当前是第%d周", weekInMills);
+            ToastUtils.showAlertToast(getApplicationContext(), format);
+            Logger.i(format);
         });
 
-        findViewById(R.id.btn_showLog).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logger.showViewer();
-            }
-        });
-        findViewById(R.id.btn_sms).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SMSActivity.class));
-            }
-        });
-        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TestActivity.class));
-            }
-        });
+        findViewById(R.id.btn_showLog).setOnClickListener(v -> Logger.showViewer());
+        findViewById(R.id.btn_sms).setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SMSActivity.class)));
+        findViewById(R.id.btn_test).setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), TestActivity.class)));
     }
 }
